@@ -1,14 +1,48 @@
 import './landing.css';
 import TaskComponent from '../Task/task';
+import task from '../../objects/task';
+import { useState, useEffect } from 'react';
 
 const LandingComponent = () => {
+
+    const [tasks, setTask] = useState(() => {
+        const saved = localStorage.getItem("tasks");
+        const initialValue = JSON.parse(saved);
+        return initialValue || [];
+    });
+
+    const taskArray = [
+        {
+            taskName: 'Task 1',
+            description: 'This is task 1',
+            date: '2021-01-01',
+            status: 'Pending'
+        },
+        {
+            taskName: 'Task 2',
+            description: 'This is a longer version of task 2 where I am testing the container by typing many words in the description. I will be letting copilot complete some of these sentences. Also a test for it. Lets keep going',
+            date: '2021-01-01',
+            status: 'Pending'
+        },
+        {
+            taskName: 'Task 3',
+            description: 'This is task 3',
+            date: '2021-01-01',
+            status: 'Pending'
+        },
+        {
+            taskName: 'Task 4',
+            description: 'This is task 4',
+            date: '2021-01-01',
+            status: 'Pending'
+        }];
+
+
     
     return (
         <div className="container">
             <ul className='taskList'>
-                <TaskComponent/>
-                <TaskComponent/>
-                <TaskComponent/>
+                {taskArray.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
             </ul>
         </div>
     )
