@@ -2,6 +2,7 @@ import './landing.css';
 import TaskComponent from '../Task/task';
 import task from '../../objects/task';
 import { useState, useEffect } from 'react';
+import NavComponent from '../Nav/nav';
 
 const LandingComponent = () => {
 
@@ -40,11 +41,15 @@ const LandingComponent = () => {
 
     
     return (
-        <div className="container">
-            <ul className='taskList'>
-                {taskArray.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
-            </ul>
-        </div>
+        <>
+            <NavComponent></NavComponent>
+            <div className="container">
+                <ul className='taskList'>
+                    {taskArray.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
+                </ul>
+            </div>
+        </>
+        
     )
 }
 
