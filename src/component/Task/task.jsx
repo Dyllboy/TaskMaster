@@ -1,12 +1,15 @@
 import './task.css';
 
-const TaskComponent = () => {
+const TaskComponent = ({task}) => {
 
     return (
         <div className="task">
-            <p>Task</p>
-            <p>This is a fake description of the task</p>
-            <p>10/10/2023</p>
+            <div className='topline'>
+                <p className='name'>{task.taskName}</p>
+                <p className='status'>{task.status}</p>
+            </div>
+            <p className='description'>{task.description}</p>
+            <p className='date'>{task.date}</p>
         </div>
     )
 }
