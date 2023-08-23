@@ -1,20 +1,12 @@
 import './nav.css'
 import { useState } from 'react';
+import LandingComponent from '../Landing/landing';
 
-const NavComponent = () => {
-
-    const [showModal, setShowModal] = useState('false');
-
-    let toggleModal = () => {
-        if(!showModal)
-            setShowModal('true');
-        else
-            setShowModal('false');
-    }
+const NavComponent = ({updateModal}) => {
 
     return (
         <ul className="nav">
-            <a className='navLink'>New Task</a>
+            <a className='navLink' onClick={updateModal}>New Task</a>
         </ul>
     )
 }

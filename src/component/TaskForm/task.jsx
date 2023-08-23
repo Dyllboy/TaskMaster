@@ -1,11 +1,16 @@
-const TaskFormComponent = () => {
+import './task.css'
+
+const TaskFormComponent = ({updateModal}) => {
     return(
         <>
-            <form>
-                <input id='taskName' type="text"/>
-                <input id='description' type="text"/>
-                <input id='date' type="text"/>
-            </form>
+            {/* <div id='modalBackdrop' className='backdrop' onClick={ updateModal() }></div> */}
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <form>
+                        <input type='text'></input>
+                    </form>
+                </div>
+            </div>
         </>
     )
 }

@@ -3,6 +3,7 @@ import TaskComponent from '../Task/task';
 import task from '../../objects/task';
 import { useState, useEffect } from 'react';
 import NavComponent from '../Nav/nav';
+import TaskFormComponent from '../TaskForm/task';
 
 const LandingComponent = () => {
 
@@ -11,6 +12,13 @@ const LandingComponent = () => {
         const initialValue = JSON.parse(saved);
         return initialValue || [];
     });
+
+    const [modalVisible, setModalVisible] = useState(false);
+    
+
+    const updateModal = () => {
+        setModalVisible(!modalVisible);
+    }
 
     const taskArray = [
         {
@@ -42,8 +50,11 @@ const LandingComponent = () => {
     
     return (
         <>
-            <NavComponent></NavComponent>
+            
+            <NavComponent updateModal = {updateModal}></NavComponent>
+            
             <div className="container">
+                {modalVisible && <TaskFormComponent updateModal={updateModal}></TaskFormComponent>}
                 <ul className='taskList'>
                     {taskArray.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
                 </ul>
