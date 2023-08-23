@@ -26,13 +26,6 @@ input {
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-.modal-backdrop {
-    top: 0;
-    left: 0;
-    background: #252424cc;
-    height: 100%;
-    width: 100vw;
-}
 
 a {
     border-radius: 4px;
