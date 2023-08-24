@@ -8,72 +8,61 @@ import TaskFormComponent from '../TaskForm/taskForm';
 
 const LandingComponent = () => {
 
-    const [task, setTask] = useState();
+    const [task, setTask] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
 
-    useEffect(() => {
-        localStorage.getItem("")
+    //State for the new task form
+    const [newTask, setNewTask] = useState({
+        taskName: '',
+        description: '',
+        date: '',
+        status: 'Pending'
     });
+
+    //Retrieves the tasks from local storage
+    useEffect(() => {
+        const storedTasks = localStorage.getItem('tasks');
+        if (storedTasks) {
+            setTask(JSON.parse(storedTasks));
+        }
+    }, []);
     
+    //Toggles the modal visibility
     const updateModal = () => {
         setModalVisible(!modalVisible);
     }
 
+    //Captures the task form data and updates the newTask state
+    const handleFormChange = event => {
+        const { name, value } = event.target;
+        setNewTask(prevTask => ({
+          ...prevTask,
+          [name]: value,
+        }));
+    };
+
+
+    //Handles the logic for when a new task is submitted
     const handleFormSubmit = event => {
         event.preventDefault();
+        const updatedTasks = [...task, newTask];
+        setTask(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
         updateModal();
-        // taskArray.push({
-        //     taskName: event.target.name,
-        //     description: event.target.description,
-        //     date: event.target.date,
-        //     status: 'Pending'
-        // })
     }
-    
 
-    const taskArray = [
-        {
-            taskName: 'Task 1',
-            description: 'This is task 1',
-            date: '2021-01-01',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Task 2',
-            description: 'This is a longer version of task 2 where I am testing the container by typing many words in the description. I will be letting copilot complete some of these sentences. Also a test for it. Lets keep going',
-            date: '2021-01-01',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Task 3',
-            description: 'This is task 3',
-            date: '2021-01-01',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Task 4',
-            description: 'This is task 4',
-            date: '2021-01-01',
-            status: 'Pending'
-        }];
-
-
-    
     return (
         <>
-            
-            <NavComponent updateModal = {updateModal}></NavComponent>
-            
+            <NavComponent updateModal = {updateModal}></NavComponent>  
             <div className="container">
                 {modalVisible && <ModalWrapperComponent updateModal={updateModal}>
-                    <TaskFormComponent submit={handleFormSubmit}></TaskFormComponent>
+                    <TaskFormComponent submit={handleFormSubmit} change={handleFormChange}></TaskFormComponent>
                 </ModalWrapperComponent>}
                 <ul className='taskList'>
-                    {taskArray.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
+                    {task.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
                 </ul>
             </div>
         </>
-        
     )
 }
 
