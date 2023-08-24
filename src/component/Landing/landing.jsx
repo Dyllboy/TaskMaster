@@ -2,49 +2,67 @@ import './landing.css';
 import TaskComponent from '../Task/task';
 import task from '../../objects/task';
 import { useState, useEffect } from 'react';
+import NavComponent from '../Nav/nav';
+import ModalWrapperComponent from '../Modal/modalWrapper';
+import TaskFormComponent from '../TaskForm/taskForm';
 
 const LandingComponent = () => {
 
-    const [tasks, setTask] = useState(() => {
-        const saved = localStorage.getItem("tasks");
-        const initialValue = JSON.parse(saved);
-        return initialValue || [];
+    const [task, setTask] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    //State for the new task form
+    const [newTask, setNewTask] = useState({
+        taskName: '',
+        description: '',
+        date: '',
+        status: 'Pending'
     });
 
-    const taskArray = [
-        {
-            taskName: 'Task 1',
-            description: 'This is task 1',
-            date: '2021-01-01',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Task 2',
-            description: 'This is a longer version of task 2 where I am testing the container by typing many words in the description. I will be letting copilot complete some of these sentences. Also a test for it. Lets keep going',
-            date: '2021-01-01',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Task 3',
-            description: 'This is task 3',
-            date: '2021-01-01',
-            status: 'Pending'
-        },
-        {
-            taskName: 'Task 4',
-            description: 'This is task 4',
-            date: '2021-01-01',
-            status: 'Pending'
-        }];
-
-
+    //Retrieves the tasks from local storage
+    useEffect(() => {
+        const storedTasks = localStorage.getItem('tasks');
+        if (storedTasks) {
+            setTask(JSON.parse(storedTasks));
+        }
+    }, []);
     
+    //Toggles the modal visibility
+    const updateModal = () => {
+        setModalVisible(!modalVisible);
+    }
+
+    //Captures the task form data and updates the newTask state
+    const handleFormChange = event => {
+        const { name, value } = event.target;
+        setNewTask(prevTask => ({
+          ...prevTask,
+          [name]: value,
+        }));
+    };
+
+
+    //Handles the logic for when a new task is submitted
+    const handleFormSubmit = event => {
+        event.preventDefault();
+        const updatedTasks = [...task, newTask];
+        setTask(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        updateModal();
+    }
+
     return (
-        <div className="container">
-            <ul className='taskList'>
-                {taskArray.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
-            </ul>
-        </div>
+        <>
+            <NavComponent updateModal = {updateModal}></NavComponent>  
+            <div className="container">
+                {modalVisible && <ModalWrapperComponent updateModal={updateModal}>
+                    <TaskFormComponent submit={handleFormSubmit} change={handleFormChange}></TaskFormComponent>
+                </ModalWrapperComponent>}
+                <ul className='taskList'>
+                    {task.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
+                </ul>
+            </div>
+        </>
     )
 }
 

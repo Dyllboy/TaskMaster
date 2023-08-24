@@ -1,0 +1,58 @@
+.modal-items {
+    background-color: #212121;
+    margin: 15% auto;
+    padding: 20px;
+
+    border-radius: 6px;
+    max-width : 400px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form input {
+    margin: auto;
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+form label{
+    color: #B9B4C7;
+}
+
+h3 {
+    color: #B9B4C7;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.form-description {
+    margin: auto;
+    width: 95%;
+    height: 4rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+form button {
+    display: block;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: #EEEEEE;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    margin: auto;
+}
+
+form button:hover {
+    background-color: #B9B4C7;
+    cursor: pointer;
+}

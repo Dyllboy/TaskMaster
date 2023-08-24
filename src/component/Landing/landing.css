@@ -6,7 +6,7 @@ body, h1, h2, p, ul, li {
 /* Set a background color and font styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #3498db;
+    background-color: #212121;
 }
 
 /* Header styles */
@@ -23,14 +23,25 @@ header {
     width: calc(100% - 100px);
     margin: auto;
     padding: 2rem;
-    background-color: #f0ebeb;
+    background-color: #3a3a3a;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 7px;
     margin-bottom: 5rem;
+    margin-top: 6rem;
 }
 
 .taskList {
     list-style: none;
 }
 
+.task {
+    box-shadow: 2px 2px 4px lightgray;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10rem;
+    margin: 1rem 0;
+    background-color: #212121;
+    border-radius: 5px;
+}
 
