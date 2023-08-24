@@ -54,7 +54,19 @@ const LandingComponent = () => {
             <NavComponent updateModal = {updateModal}></NavComponent>
             
             <div className="container">
-                {modalVisible && <TaskFormComponent updateModal={updateModal}></TaskFormComponent>}
+                {modalVisible && <TaskFormComponent updateModal={updateModal}>
+                    <div className='modal-items'>
+                        <h2>New Task</h2>
+                        <form>
+                            <label for="taskName">Task Name</label>
+                            <input type="text" id="taskName" name="taskName" placeholder="Task Name"></input>
+                            <label for="description">Description</label>
+                            <input type="text" id="description" name="description" placeholder="Description"></input>
+                            <label for="date">Date</label>
+                            <input type="date" id="date" name="date" placeholder="Date"></input>   
+                        </form>
+                    </div>
+                </TaskFormComponent>}
                 <ul className='taskList'>
                     {taskArray.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
                 </ul>
