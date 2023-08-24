@@ -3,22 +3,33 @@ import TaskComponent from '../Task/task';
 import task from '../../objects/task';
 import { useState, useEffect } from 'react';
 import NavComponent from '../Nav/nav';
-import TaskFormComponent from '../TaskForm/task';
+import ModalWrapperComponent from '../Modal/modalWrapper';
+import TaskFormComponent from '../TaskForm/taskForm';
 
 const LandingComponent = () => {
 
-    const [tasks, setTask] = useState(() => {
-        const saved = localStorage.getItem("tasks");
-        const initialValue = JSON.parse(saved);
-        return initialValue || [];
-    });
-
+    const [task, setTask] = useState();
     const [modalVisible, setModalVisible] = useState(false);
-    
 
+    useEffect(() => {
+        localStorage.getItem("")
+    });
+    
     const updateModal = () => {
         setModalVisible(!modalVisible);
     }
+
+    const handleFormSubmit = event => {
+        event.preventDefault();
+        updateModal();
+        // taskArray.push({
+        //     taskName: event.target.name,
+        //     description: event.target.description,
+        //     date: event.target.date,
+        //     status: 'Pending'
+        // })
+    }
+    
 
     const taskArray = [
         {
@@ -54,19 +65,9 @@ const LandingComponent = () => {
             <NavComponent updateModal = {updateModal}></NavComponent>
             
             <div className="container">
-                {modalVisible && <TaskFormComponent updateModal={updateModal}>
-                    <div className='modal-items'>
-                        <h2>New Task</h2>
-                        <form>
-                            <label for="taskName">Task Name</label>
-                            <input type="text" id="taskName" name="taskName" placeholder="Task Name"></input>
-                            <label for="description">Description</label>
-                            <input type="text" id="description" name="description" placeholder="Description"></input>
-                            <label for="date">Date</label>
-                            <input type="date" id="date" name="date" placeholder="Date"></input>   
-                        </form>
-                    </div>
-                </TaskFormComponent>}
+                {modalVisible && <ModalWrapperComponent updateModal={updateModal}>
+                    <TaskFormComponent submit={handleFormSubmit}></TaskFormComponent>
+                </ModalWrapperComponent>}
                 <ul className='taskList'>
                     {taskArray.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
                 </ul>

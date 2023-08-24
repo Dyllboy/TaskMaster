@@ -1,20 +1,20 @@
-import './task.css'
+import './modalWrapper.css'
 
-const TaskFormComponent = ({updateModal, children}) => {
+const ModalWrapperComponent = ({updateModal, children}) => {
 
     const handleBackdropClick = event => {
         if (event.target === event.currentTarget) {
-            updateModal(); // Close the modal when backdrop is clicked
+            updateModal();
         }
     };
 
     return(
         <>
             <div id="myModal" class="modal" onClick={handleBackdropClick}>
-                <div class="modal-content">{children}</div>
+                {children}
             </div>
         </>
     )
 }
 
-export default TaskFormComponent
+export default ModalWrapperComponent

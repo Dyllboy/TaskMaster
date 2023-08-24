@@ -1,11 +1,3 @@
-form {
-
-}
-
-input {
-    
-}
-
 .modal {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -18,16 +10,6 @@ input {
     justify-content: center;
     align-items: center;
   }
-  
-  /* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 6px;
-    width: 500px; /* Could be more or less, depending on screen size */
-}
 
 a {
     border-radius: 4px;
