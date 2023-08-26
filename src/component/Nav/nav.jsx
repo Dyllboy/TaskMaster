@@ -7,6 +7,7 @@ const NavComponent = ({updateModal}) => {
     return (
         <ul className="nav">
             <a className='navLink' onClick={updateModal}>New Task</a>
+            <p className='navTitle'>Task Master</p>
         </ul>
     )
 }
