@@ -1,9 +1,9 @@
 import './task.css';
 
-const TaskComponent = ({task}) => {
+const TaskComponent = ({task, updateEditTaskModal}) => {
 
     return (
-        <div className="task">
+        <div className="task" onClick={updateEditTaskModal}>
             <div className='topline'>
                 <p className='name'>{task.taskName}</p>
                 <p className='status'>{task.status}</p>

@@ -9,7 +9,8 @@ import TaskFormComponent from '../TaskForm/taskForm';
 const LandingComponent = () => {
 
     const [task, setTask] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [addTaskModalVisible, setTaskModalVisible] = useState(false);
+    const [editTaskModalVisible, setEditTaskModalVisible] = useState(false);
 
     //State for the new task form
     const [newTask, setNewTask] = useState({
@@ -29,7 +30,11 @@ const LandingComponent = () => {
     
     //Toggles the modal visibility
     const updateModal = () => {
-        setModalVisible(!modalVisible);
+        setTaskModalVisible(!addTaskModalVisible);
+    }
+
+    const updateEditTaskModal = () => {
+        setEditTaskModalVisible(!editTaskModalVisible);
     }
 
     //Captures the task form data and updates the newTask state
@@ -41,7 +46,6 @@ const LandingComponent = () => {
         }));
     };
 
-
     //Handles the logic for when a new task is submitted
     const handleFormSubmit = event => {
         event.preventDefault();
@@ -51,15 +55,21 @@ const LandingComponent = () => {
         updateModal();
     }
 
+    
     return (
         <>
-            <NavComponent updateModal = {updateModal}></NavComponent>  
+            <NavComponent updateModal = {updateModal} updateEditTaskModal={updateEditTaskModal}></NavComponent>  
             <div className="container">
-                {modalVisible && <ModalWrapperComponent updateModal={updateModal}>
+                {addTaskModalVisible && <ModalWrapperComponent updateModal={updateModal}>
                     <TaskFormComponent submit={handleFormSubmit} change={handleFormChange}></TaskFormComponent>
                 </ModalWrapperComponent>}
+
+                {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
+                    <editTaskModalVisible submit={handleFormSubmit} change={handleFormChange}></editTaskModalVisible>
+                </ModalWrapperComponent>}
+
                 <ul className='taskList'>
-                    {task.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
+                    {task.map(t => (<TaskComponent key={t.taskName} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>))}
                 </ul>
             </div>
         </>

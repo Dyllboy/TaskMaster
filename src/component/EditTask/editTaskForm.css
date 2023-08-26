@@ -7,10 +7,6 @@
     margin: 1rem 0;
 }
 
-.task:hover {
-    cursor: pointer;
-}
-
 .name {
     color: #B9B4C7;
     font-size: larger;
