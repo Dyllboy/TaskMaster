@@ -1,6 +1,6 @@
 import './modalWrapper.css'
 
-const ModalWrapperComponent = ({updateModal, updateEditTaskModal, children}) => {
+const ModalWrapperComponent = ({updateModal, children}) => {
 
     const handleBackdropClick = event => {
         if (event.target === event.currentTarget) {

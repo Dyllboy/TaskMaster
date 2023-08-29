@@ -36,3 +36,14 @@
     display: flex;
     justify-content: space-between;
 }
+
+.statusSelect {
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    display: block;
+    padding: 3px;
+}
+
+option {
+    color: grey;
+}

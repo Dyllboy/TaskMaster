@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import NavComponent from '../Nav/nav';
 import ModalWrapperComponent from '../Modal/modalWrapper';
 import TaskFormComponent from '../TaskForm/taskForm';
+import EditTaskFormComponent from '../EditTask/editTaskForm';
 
 const LandingComponent = () => {
 
@@ -55,6 +56,15 @@ const LandingComponent = () => {
         updateModal();
     }
 
+    //Handles the logic for when an edit task form is submitted
+    const editFormSubmit = (event) => {
+        event.preventDefault();
+        const updatedTasks = [...task, newTask];
+        setTask(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        updateModal();
+    }
+
     
     return (
         <>
@@ -64,12 +74,13 @@ const LandingComponent = () => {
                     <TaskFormComponent submit={handleFormSubmit} change={handleFormChange}></TaskFormComponent>
                 </ModalWrapperComponent>}
 
-                {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
-                    <editTaskModalVisible submit={handleFormSubmit} change={handleFormChange}></editTaskModalVisible>
-                </ModalWrapperComponent>}
-
+                
                 <ul className='taskList'>
-                    {task.map(t => (<TaskComponent key={t.taskName} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>))}
+                    {task.map(t => (<><TaskComponent key={t.taskName} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>
+                                      {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
+                                        <EditTaskFormComponent key={t.taskName} task={t} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
+                                      </ModalWrapperComponent>}
+                                    </>))}
                 </ul>
             </div>
         </>
