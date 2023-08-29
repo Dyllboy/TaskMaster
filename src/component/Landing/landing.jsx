@@ -59,10 +59,15 @@ const LandingComponent = () => {
     //Handles the logic for when an edit task form is submitted
     const editFormSubmit = (event) => {
         event.preventDefault();
-        const updatedTasks = [...task, newTask];
+        const updatedTasks = task.map(t => {
+            if(t.taskName === newTask.taskName) 
+                return newTask
+            else
+                return t
+        })
         setTask(updatedTasks);
         localStorage.setItem('tasks', JSON.stringify(updatedTasks));
-        updateModal();
+        updateEditTaskModal();
     }
 
     
