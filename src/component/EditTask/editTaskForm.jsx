@@ -12,12 +12,12 @@ const EditTaskFormComponent = ({submit, change, task}) => {
                 <textarea type="text" className='form-description' name="description" placeholder={task.description} onChange={change}></textarea>
                 <label for="date">Date</label>
                 <input type="date" className='date' name="date" value={task.date} onChange={change}></input>
-                <select onChange={change} className='statusSelect'>
+                <select name="status" value={task.status} onChange={change} className='statusSelect'>
                     <option value='Pending'>Pending</option>
                     <option value='In Progress'>In Progress</option>
                     <option value='Completed'>Completed</option>
                 </select>
-                <button type='submit' onClick={submit}>Submit</button>
+                <button type='submit' onClick={event => submit(event, task.id)}>Submit</button>
             </form>
         </div>
     )

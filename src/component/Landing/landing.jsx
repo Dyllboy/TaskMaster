@@ -15,6 +15,7 @@ const LandingComponent = () => {
 
     //State for the new task form
     const [newTask, setNewTask] = useState({
+        id: 0,
         taskName: '',
         description: '',
         date: '',
@@ -50,6 +51,8 @@ const LandingComponent = () => {
     //Handles the logic for when a new task is submitted
     const handleFormSubmit = event => {
         event.preventDefault();
+        setNewTask(newTask.id = task.length + 1);
+        setNewTask(newTask.status = 'Pending');
         const updatedTasks = [...task, newTask];
         setTask(updatedTasks);
         localStorage.setItem('tasks', JSON.stringify(updatedTasks));
@@ -57,14 +60,12 @@ const LandingComponent = () => {
     }
 
     //Handles the logic for when an edit task form is submitted
-    const editFormSubmit = (event) => {
+    const editFormSubmit = (event, id) => {
         event.preventDefault();
-        const updatedTasks = task.map(t => {
-            if(t.taskName === newTask.taskName) 
-                return newTask
-            else
-                return t
-        })
+        const updatedTasks = task.map(t =>
+            t.id === id ? { ...t, ...newTask } : t
+        );
+        console.log(newTask);
         setTask(updatedTasks);
         localStorage.setItem('tasks', JSON.stringify(updatedTasks));
         updateEditTaskModal();
@@ -81,9 +82,9 @@ const LandingComponent = () => {
 
                 
                 <ul className='taskList'>
-                    {task.map(t => (<><TaskComponent key={t.taskName} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>
+                    {task.map(t => (<><TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>
                                       {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
-                                        <EditTaskFormComponent key={t.taskName} task={t} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
+                                        <EditTaskFormComponent key={t.id} task={t} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
                                       </ModalWrapperComponent>}
                                     </>))}
                 </ul>
