@@ -45,3 +45,7 @@ header {
     border-radius: 5px;
 }
 
+.placeHolderMessage {
+    text-align: center;
+    color: #B9B4C7;
+}

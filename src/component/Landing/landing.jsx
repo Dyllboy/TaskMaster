@@ -76,19 +76,21 @@ const LandingComponent = () => {
     
     return (
         <>
-            <NavComponent updateModal = {updateModal}></NavComponent>  
-            <div className="container">
-                {addTaskModalVisible && <ModalWrapperComponent updateModal={updateModal}>
+            <NavComponent updateModal = {updateModal}></NavComponent>
+
+            {addTaskModalVisible && <ModalWrapperComponent updateModal={updateModal}>
                     <TaskFormComponent submit={handleFormSubmit} change={handleFormChange}></TaskFormComponent>
                 </ModalWrapperComponent>}
 
-                {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
-                    <EditTaskFormComponent key={newTask.id} task={newTask} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
-                </ModalWrapperComponent>}
-                
-                <ul className='taskList'>
+            {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
+                <EditTaskFormComponent key={newTask.id} task={newTask} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
+            </ModalWrapperComponent>}
+
+            <div className="container">
+                {task.length == 0 && <h1 className='placeHolderMessage'>Try Adding a New Task!</h1>}
+                {task.length != 0 && <ul className='taskList'>
                     {task.map(t => (<TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>))}
-                </ul>
+                </ul>}
             </div>
         </>
     )
