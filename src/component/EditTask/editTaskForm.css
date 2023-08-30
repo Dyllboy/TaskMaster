@@ -7,10 +7,6 @@
     margin: 1rem 0;
 }
 
-.task:hover {
-    cursor: pointer;
-}
-
 .name {
     color: #B9B4C7;
     font-size: larger;
@@ -39,4 +35,15 @@
 .topline {
     display: flex;
     justify-content: space-between;
+}
+
+.statusSelect {
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    display: block;
+    padding: 3px;
+}
+
+option {
+    color: grey;
 }

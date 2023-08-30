@@ -5,14 +5,17 @@ import { useState, useEffect } from 'react';
 import NavComponent from '../Nav/nav';
 import ModalWrapperComponent from '../Modal/modalWrapper';
 import TaskFormComponent from '../TaskForm/taskForm';
+import EditTaskFormComponent from '../EditTask/editTaskForm';
 
 const LandingComponent = () => {
 
     const [task, setTask] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
+    const [addTaskModalVisible, setTaskModalVisible] = useState(false);
+    const [editTaskModalVisible, setEditTaskModalVisible] = useState(false);
 
     //State for the new task form
     const [newTask, setNewTask] = useState({
+        id: 0,
         taskName: '',
         description: '',
         date: '',
@@ -29,7 +32,13 @@ const LandingComponent = () => {
     
     //Toggles the modal visibility
     const updateModal = () => {
-        setModalVisible(!modalVisible);
+        setTaskModalVisible(!addTaskModalVisible);
+    }
+
+    const updateEditTaskModal = (t) => {
+        if(t != undefined)
+            setNewTask(t);
+        setEditTaskModalVisible(!editTaskModalVisible);
     }
 
     //Captures the task form data and updates the newTask state
@@ -41,25 +50,45 @@ const LandingComponent = () => {
         }));
     };
 
-
     //Handles the logic for when a new task is submitted
     const handleFormSubmit = event => {
         event.preventDefault();
+        setNewTask(newTask.id = task.length + 1);
+        setNewTask(newTask.status = 'Pending');
         const updatedTasks = [...task, newTask];
         setTask(updatedTasks);
         localStorage.setItem('tasks', JSON.stringify(updatedTasks));
         updateModal();
     }
 
+    //Handles the logic for when an edit task form is submitted
+    const editFormSubmit = (event, id) => {
+        event.preventDefault();
+        const updatedTasks = task.map(t =>
+            t.id === id ? { ...t, ...newTask } : t
+        );
+        console.log(newTask);
+        setTask(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        updateEditTaskModal();
+    }
+
+    
     return (
         <>
-            <NavComponent updateModal = {updateModal}></NavComponent>  
+            <NavComponent updateModal = {updateModal} updateEditTaskModal={updateEditTaskModal}></NavComponent>  
             <div className="container">
-                {modalVisible && <ModalWrapperComponent updateModal={updateModal}>
+                {addTaskModalVisible && <ModalWrapperComponent updateModal={updateModal}>
                     <TaskFormComponent submit={handleFormSubmit} change={handleFormChange}></TaskFormComponent>
                 </ModalWrapperComponent>}
+
+                
                 <ul className='taskList'>
-                    {task.map(t => (<TaskComponent key={t.taskName} task={t}></TaskComponent>))}
+                    {task.map(t => (<><TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>
+                                      {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
+                                        <EditTaskFormComponent key={newTask.id} task={newTask} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
+                                      </ModalWrapperComponent>}
+                                    </>))}
                 </ul>
             </div>
         </>
