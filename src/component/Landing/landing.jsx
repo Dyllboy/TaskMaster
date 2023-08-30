@@ -35,7 +35,9 @@ const LandingComponent = () => {
         setTaskModalVisible(!addTaskModalVisible);
     }
 
-    const updateEditTaskModal = () => {
+    const updateEditTaskModal = (t) => {
+        if(t != undefined)
+            setNewTask(t);
         setEditTaskModalVisible(!editTaskModalVisible);
     }
 
@@ -84,7 +86,7 @@ const LandingComponent = () => {
                 <ul className='taskList'>
                     {task.map(t => (<><TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>
                                       {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
-                                        <EditTaskFormComponent key={t.id} task={t} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
+                                        <EditTaskFormComponent key={newTask.id} task={newTask} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
                                       </ModalWrapperComponent>}
                                     </>))}
                 </ul>
