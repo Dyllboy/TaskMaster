@@ -49,3 +49,10 @@ header {
     text-align: center;
     color: #B9B4C7;
 }
+
+.filterSelect {
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    display: block;
+    padding: 3px;
+}

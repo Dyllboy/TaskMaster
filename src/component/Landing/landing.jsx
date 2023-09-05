@@ -92,7 +92,7 @@ const LandingComponent = () => {
 
             <div className="container">
                 {task.length == 0 && <h1 className='placeHolderMessage'>Try Adding a New Task!</h1>}
-                {task.length != 0 && <select onChange={HandleFilterChange}>
+                {task.length != 0 && <select className='filterSelect' onChange={HandleFilterChange}>
                     <option>Show All</option>
                     <option>Pending</option>
                     <option>In Progress</option>
