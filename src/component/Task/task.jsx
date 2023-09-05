@@ -1,7 +1,6 @@
 import './task.css';
 
 const TaskComponent = ({task, updateEditTaskModal}) => {
-
     return (
         <div className="task" onClick={() => updateEditTaskModal(task)}>
             <div className='topline'>

@@ -12,6 +12,7 @@ const LandingComponent = () => {
     const [task, setTask] = useState([]);
     const [addTaskModalVisible, setTaskModalVisible] = useState(false);
     const [editTaskModalVisible, setEditTaskModalVisible] = useState(false);
+    const [filterStatus, setFilterStatus] = useState('Show All');
 
     //State for the new task form
     const [newTask, setNewTask] = useState({
@@ -73,6 +74,9 @@ const LandingComponent = () => {
         updateEditTaskModal();
     }
 
+    const HandleFilterChange = (event) => {
+        setFilterStatus(event.target.value);
+    }
     
     return (
         <>
@@ -88,9 +92,14 @@ const LandingComponent = () => {
 
             <div className="container">
                 {task.length == 0 && <h1 className='placeHolderMessage'>Try Adding a New Task!</h1>}
-                {task.length != 0 && <ul className='taskList'>
-                    {task.map(t => (<TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>))}
-                </ul>}
+                {task.length != 0 && <select className='filterSelect' onChange={HandleFilterChange}>
+                    <option>Show All</option>
+                    <option>Pending</option>
+                    <option>In Progress</option>
+                    <option>Completed</option>
+                </select>}
+                {task.length != 0 && filterStatus =='Show All' && <ul className='taskList'>{task.map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>)}</ul>}
+                {task.length != 0 && filterStatus !='Show All' && <ul className='taskList'>{task.filter(t => t.status == filterStatus).map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>)}</ul>}
             </div>
         </>
     )
