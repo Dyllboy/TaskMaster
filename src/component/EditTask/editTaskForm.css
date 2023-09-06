@@ -48,3 +48,17 @@
 option {
     color: grey;
 }
+
+.delete {
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    background-color: red;
+    border: none;
+    width: 50px;
+    text-align: center;
+}
+
+.bottomRow {
+    display: flex;
+    justify-content: space-between;
+}

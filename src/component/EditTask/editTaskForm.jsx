@@ -1,6 +1,8 @@
 import './editTaskForm.css'
+import {FaTrash} from 'react-icons/fa'
 
-const EditTaskFormComponent = ({submit, change, task}) => {
+
+const EditTaskFormComponent = ({submit, change, task, deleteTask}) => {
 
     return (
         <div className='modal-items'>
@@ -12,11 +14,14 @@ const EditTaskFormComponent = ({submit, change, task}) => {
                 <textarea type="text" className='form-description' name="description" placeholder={task.description} onChange={change}></textarea>
                 <label for="date">Date</label>
                 <input type="date" className='date' name="date" value={task.date} onChange={change}></input>
-                <select name="status" value={task.status} onChange={change} className='statusSelect'>
-                    <option value='Pending'>Pending</option>
-                    <option value='In Progress'>In Progress</option>
-                    <option value='Completed'>Completed</option>
-                </select>
+                <div className='bottomRow'>
+                    <select name="status" value={task.status} onChange={change} className='statusSelect'>
+                        <option value='Pending'>Pending</option>
+                        <option value='In Progress'>In Progress</option>
+                        <option value='Completed'>Completed</option>
+                    </select>
+                    <a className='delete' onClick={event => deleteTask(event, task.id)}><FaTrash/></a>
+                </div>
                 <button type='submit' onClick={event => submit(event, task.id)}>Submit</button>
             </form>
         </div>

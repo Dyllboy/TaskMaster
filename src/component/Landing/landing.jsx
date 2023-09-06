@@ -68,7 +68,6 @@ const LandingComponent = () => {
         const updatedTasks = task.map(t =>
             t.id === id ? { ...t, ...newTask } : t
         );
-        console.log(newTask);
         setTask(updatedTasks);
         localStorage.setItem('tasks', JSON.stringify(updatedTasks));
         updateEditTaskModal();
@@ -76,6 +75,16 @@ const LandingComponent = () => {
 
     const HandleFilterChange = (event) => {
         setFilterStatus(event.target.value);
+    }
+
+    const handleDeleteTask = (event, id) => {
+        event.preventDefault();
+        const updatedTasks = task.filter(t => {
+            return t.id != id;
+        });
+        setTask(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        updateEditTaskModal();
     }
     
     return (
@@ -87,7 +96,7 @@ const LandingComponent = () => {
                 </ModalWrapperComponent>}
 
             {editTaskModalVisible && <ModalWrapperComponent updateModal={updateEditTaskModal}>
-                <EditTaskFormComponent key={newTask.id} task={newTask} submit={editFormSubmit} change={handleFormChange}></EditTaskFormComponent>
+                <EditTaskFormComponent key={newTask.id} task={newTask} submit={editFormSubmit} change={handleFormChange} deleteTask={handleDeleteTask}></EditTaskFormComponent>
             </ModalWrapperComponent>}
 
             <div className="container">
