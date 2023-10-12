@@ -1,8 +1,16 @@
 import './task.css';
+import { useDrag } from 'react-dnd'
 
 const TaskComponent = ({task, updateEditTaskModal}) => {
+    const [{isDragging}, drag] = useDrag(() => ({
+        type: "task",
+        collect: (monitor) = ({
+            isDragging: !!monitor.isDragging(),
+        }),
+    }));
+
     return (
-        <div className="task" onClick={() => updateEditTaskModal(task)}>
+        <div ref={drag} className="task" onClick={() => updateEditTaskModal(task)}>
             <div className='topline'>
                 <p className='name'>{task.taskName}</p>
                 <p className='status'>{task.status}</p>
