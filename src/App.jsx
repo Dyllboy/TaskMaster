@@ -6,11 +6,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div >
-        <LandingComponent/>
-      </div>
-    </DndProvider>
+    <div >
+      <LandingComponent/>
+    </div>
   );
 }
 

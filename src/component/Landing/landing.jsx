@@ -14,10 +14,10 @@ const LandingComponent = () => {
     const [editTaskModalVisible, setEditTaskModalVisible] = useState(false);
     const [filterStatus, setFilterStatus] = useState('Show All');
 
-    const [{isOver}, drop] = useDrop(() => ({
-        accept: "task",
-        drop: (item) => 
-    }))
+    // const [{isOver}, drop] = useDrop(() => ({
+    //     accept: "task",
+    //     drop: (item) => 
+    // }))
 
     //State for the new task form
     const [newTask, setNewTask] = useState({
@@ -112,8 +112,8 @@ const LandingComponent = () => {
                     <option>In Progress</option>
                     <option>Completed</option>
                 </select>}
-                {task.length != 0 && filterStatus =='Show All' && <ul ref={drop} className='taskList'>{task.map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>)}</ul>}
-                {task.length != 0 && filterStatus !='Show All' && <ul ref={drop} className='taskList'>{task.filter(t => t.status == filterStatus).map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>)}</ul>}
+                {task.length != 0 && filterStatus =='Show All' && <ul className='taskList'>{task.map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>)}</ul>}
+                {task.length != 0 && filterStatus !='Show All' && <ul className='taskList'>{task.filter(t => t.status == filterStatus).map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>)}</ul>}
             </div>
         </>
     )
