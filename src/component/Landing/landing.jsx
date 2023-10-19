@@ -19,6 +19,21 @@ const LandingComponent = () => {
     //     drop: (item) => 
     // }))
 
+    const[dragItemIndex, setDragItemIndex] = useState();
+    const [dragOverItemIndex, setDragOverItemIndex] = useState();
+
+    const handleDragStart = (index) => {
+        setDragItemIndex(index)
+    };
+
+    const handleDragOver = event => {
+        event.preventDefault();
+    };
+
+    const handleDrop = index => {
+
+    };
+
     //State for the new task form
     const [newTask, setNewTask] = useState({
         id: 0,
@@ -112,7 +127,7 @@ const LandingComponent = () => {
                     <option>In Progress</option>
                     <option>Completed</option>
                 </select>}
-                {task.length != 0 && filterStatus =='Show All' && <ul className='taskList'>{task.map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>)}</ul>}
+                {task.length != 0 && filterStatus =='Show All' && <ul className='taskList'>{task.map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal} onDragS={handleDragStart} onDragO={handleDragOver} index={t.id}></TaskComponent>)}</ul>}
                 {task.length != 0 && filterStatus !='Show All' && <ul className='taskList'>{task.filter(t => t.status == filterStatus).map(t => <TaskComponent key={t.id} task={t} updateEditTaskModal={updateEditTaskModal}></TaskComponent>)}</ul>}
             </div>
         </>
