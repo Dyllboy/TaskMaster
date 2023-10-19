@@ -26,4 +26,12 @@ a:hover {
     font-size: 24px;
     margin-right: 2.5rem;
     font-weight: bold;
+    background-color: #333;
+    text-decoration: none;
+    border: none;
+    box-shadow: none;
+}
+
+.navTitle:hover {
+    background-color: #333;
 }
